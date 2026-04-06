@@ -1,0 +1,37 @@
+class Solution {
+    /**
+     * @param {character[][]} board
+     * @return {boolean}
+     */
+    isValidSudoku(board) {
+        let rows = new Map();
+        let columns = new Map();
+        let squares = new Map();
+
+        for (let r = 0; r < 9; r++) {
+            for (let c = 0; c < 9; c++) {
+
+                let squareKey = `${Math.floor(r/3)}, ${Math.floor(c/3)}`;
+                if(board[r][c] == '.') continue;
+
+                if((rows.get(r) && rows.get(r).has(board[r][c])) ||
+                     (columns.get(c) && columns.get(c).has(board[r][c])) ||
+                     (squares.get(squareKey) && squares.get(squareKey).has(board[r][c]))) 
+                     {
+                        return false;
+                     }
+
+                     if(!rows.has(r)) rows.set(r, new Set());                     if(!rows.has(r)) rows.set(r, new Set());
+                     if(!columns.has(c)) columns.set(c, new Set());
+                     if(!squares.has(squareKey)) squares.set(squareKey, new Set());
+                          
+
+                    rows.get(r).add(board[r][c]);
+                    columns.get(c).add(board[r][c]);
+                    squares.get(squareKey).add(board[r][c]);
+           
+            }
+        }
+        return true;
+    }
+}
